@@ -2,6 +2,7 @@ package Table;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Database {
@@ -30,5 +31,11 @@ public class Database {
         preparedStatement.executeBatch();
         preparedStatement.close();
         statement.close();
+    }
+
+    public ResultSet get(String query) throws SQLException {
+        var statement = connection.createStatement();
+        statement.setQueryTimeout(30);
+        return statement.executeQuery(query);
     }
 }
